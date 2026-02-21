@@ -73,14 +73,14 @@ public class Player : MonoBehaviour
             }
         }
        
-       /* if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
-            if (velocity.x > maxSpeed)
+            if (!isGrounded)
             {
-                velocity.x = maxSpeed;
+                velocity.y -= speed * fallSpeed * Time.deltaTime;
             }
         } 
-        */
+        
 		
 
         rb.velocity = velocity;
