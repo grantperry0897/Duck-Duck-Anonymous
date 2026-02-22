@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         velocity.x = -speed;
         collisionCount = 0;
         collisionTime = 0;
-        playerScore = 0;
+        playerScore = 0;        
     }
 
     // Update is called once per frame
