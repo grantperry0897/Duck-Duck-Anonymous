@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     // SerializeField tag exposes the attribute to the inspector in Unity
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float speed;
-    [SerializeField] private float rotateSpeed;
-    [SerializeField] private float maxSpeed;
+    [SerializeField] private float acceleration;
     [SerializeField] private float fallSpeed;
     [SerializeField] private float jumpSpeed;
     [SerializeField] private LayerMask whatIsGround;
@@ -18,28 +18,31 @@ public class Player : MonoBehaviour
     [SerializeField] private int[] lateralPositionArray = new int[3];
     private int lateralPositionIndex;
     private Vector3 velocity;
-    private Vector3 position;
     private bool isGrounded;
-    
+    private float time;
+    private float collisionTime; 
+    private int collisionCount; 
+
 
     // Start is called before the first frame update
     void Start()
     {
         lateralPositionIndex = 1;
+        velocity.x = -speed;
+        collisionCount = 0;
+        collisionTime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         velocity.z = 0;
-        
         // lateral movement
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (lateralPositionIndex <2)
             {
                 lateralPositionIndex++;
-                Debug.Log(lateralPositionIndex);
             }
 
         }
@@ -48,11 +51,11 @@ public class Player : MonoBehaviour
             if (lateralPositionIndex >0)
             {
                 lateralPositionIndex--;
-                Debug.Log(lateralPositionIndex);
             }
             
 
         }
+        /*
         if (Input.GetKey(KeyCode.UpArrow))
         {
             velocity.x -= speed;
@@ -61,6 +64,7 @@ public class Player : MonoBehaviour
                 velocity.x = -maxSpeed;
             }
         }
+        */
         if (Math.Abs(rb.position.z - lateralPositionArray[lateralPositionIndex]) >.1)
         {
             if (rb.position.z > lateralPositionArray[lateralPositionIndex])
@@ -80,8 +84,24 @@ public class Player : MonoBehaviour
                 velocity.y -= speed * fallSpeed * Time.deltaTime;
             }
         } 
+        time += Time.deltaTime;
         
-		
+        if (time > 20)
+        {
+            time = 0;
+            velocity.x *= acceleration;
+            
+        }
+        collisionTime += Time.deltaTime;
+        if (collisionTime > 10)
+        {
+            collisionCount --;
+            Debug.Log(collisionCount);
+            if (collisionCount < 0)
+            {
+                collisionCount = 0;
+            }
+        }
 
         rb.velocity = velocity;
         // ground check
@@ -96,8 +116,12 @@ public class Player : MonoBehaviour
         {
             velocity.y = jumpSpeed;
         }
-
         rb.velocity = velocity;
+        //Debug.Log(velocity);
+        if (collisionCount > 2)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
         // to set new vectors -> new Vector(0,0,0)
     }
 
@@ -105,10 +129,11 @@ public class Player : MonoBehaviour
     {
         if (collisionInfo.collider.tag == "Obstacle")
         {
-
             Debug.Log("I hit the obstacle");
-        }
-       
+            collisionTime = 0;
+            collisionCount++;
+            Debug.Log(collisionCount);
+        }       
     }
 }
 
