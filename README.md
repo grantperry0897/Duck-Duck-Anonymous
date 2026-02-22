@@ -4,7 +4,7 @@ Duck Duck Goose horror runner
 How to Play:
 - wasd and arrowkeys for movement controls
 - Space bar for jump 
-- Avoid the obsticales to keep distance from Goose
+- Avoid the obstacles to keep distance from Goose
 
 
 Authors: <br>
