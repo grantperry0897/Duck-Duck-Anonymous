@@ -10,8 +10,9 @@ public class Score : MonoBehaviour
     void Start()
     {
         Player score = new Player();
-        int i = (int) Player.playerScore;
-        textObject.SetText(i.ToString());
+       int i = (int) Player.playerScore;
+       textObject.SetText(i.ToString());
+    
     }
 
 }
