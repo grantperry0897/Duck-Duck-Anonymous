@@ -14,6 +14,11 @@ public void QuitGame()
     {
         Application.Quit();
     }
+
+public void ToMain()
+    {
+        SceneManager.LoadScene(0);
+    }
     
 
 }
