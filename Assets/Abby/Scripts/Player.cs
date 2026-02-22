@@ -122,6 +122,10 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
+        if (rb.position.y < 0)
+        {
+             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
         // to set new vectors -> new Vector(0,0,0)
     }
 
