@@ -132,7 +132,6 @@ public class Player : MonoBehaviour
         {
             collisionTime = 0;
             collisionCount++;
-            transform.
         }       
     }
 }
