@@ -7,9 +7,11 @@ public class SegmentGenerator : MonoBehaviour
     public GameObject[] segmentArray;
         [SerializeField] int xPos;
         [SerializeField] int spawnTime;
-        [SerializeField] bool creatingSegment;
+        //[SerializeField] bool creatingSegment;
         [SerializeField] int segmentNumber;
         [SerializeField] private float segmentLifetime;
+        [SerializeField] Transform player;
+        private float spawnIndex = 20;
     // Start is called before the first frame update
     IEnumerator Start()
     {
@@ -17,26 +19,32 @@ public class SegmentGenerator : MonoBehaviour
     }
     void Update()
     {
-        if(creatingSegment == false)
+        /*if(creatingSegment == false)
         {
             creatingSegment = true;
-            StartCoroutine(SegmentGenerate());
+            StartCoroutine(SegmentGenerate(player));
         }
-    
-        
+        */
+         if (player.position.x < spawnIndex)
+        {
+            SegmentGenerate();
+            spawnIndex -= 75;
+        }
+
+
     }
 
-    IEnumerator SegmentGenerate()
+    void SegmentGenerate()
     {
         segmentNumber = Random.Range(0,5);
         GameObject mapSegment = Instantiate(segmentArray[segmentNumber], new Vector3(xPos, 0,0), Quaternion.identity);
         xPos += -75;
-        yield return new WaitForSeconds(5);
-        creatingSegment = false;
+    
         StartCoroutine(DestroySegment(mapSegment));
+        
     }
 
-    private IEnumerator DestroySegment(GameObject mapSegment)
+    IEnumerator DestroySegment(GameObject mapSegment)
     {
         yield return new WaitForSeconds(20);
         Destroy(mapSegment);
