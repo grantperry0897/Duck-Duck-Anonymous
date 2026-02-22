@@ -14,6 +14,5 @@ public void QuitGame()
     {
         Application.Quit();
     }
-    
 
 }
