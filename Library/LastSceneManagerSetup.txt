@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Grant/Scenes/EndMenu.unity
+- path: Assets/Abby/Scenes/TestHallway.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

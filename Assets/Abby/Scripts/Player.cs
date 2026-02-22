@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -20,9 +21,10 @@ public class Player : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     private float time;
+    private float stopTime;
     private float collisionTime; 
     private int collisionCount; 
-    public static int playerScore;
+    public static float playerScore;
 
 
     // Start is called before the first frame update
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
     {
         velocity.z = 0;
         // lateral movement
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             if (lateralPositionIndex <2)
             {
@@ -48,7 +50,7 @@ public class Player : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             if (lateralPositionIndex >0)
             {
@@ -70,7 +72,7 @@ public class Player : MonoBehaviour
             }
         }
        
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
             if (!isGrounded)
             {
@@ -94,6 +96,7 @@ public class Player : MonoBehaviour
                 collisionCount = 0;
             }
         }
+        
 
         rb.velocity = velocity;
         // ground check
@@ -118,6 +121,7 @@ public class Player : MonoBehaviour
         {
              SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
+        playerScore += Time.deltaTime;
         
         // to set new vectors -> new Vector(0,0,0)
     }
@@ -128,6 +132,7 @@ public class Player : MonoBehaviour
         {
             collisionTime = 0;
             collisionCount++;
+            transform.
         }       
     }
 }

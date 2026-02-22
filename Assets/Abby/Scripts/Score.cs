@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Threading;
-using System.Data;
-using Unity.VisualScripting;
 
 public class Score : MonoBehaviour
 {
@@ -13,7 +10,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         Player score = new Player();
-        int i = Player.playerScore;
+        int i = (int) Player.playerScore;
         textObject.SetText(i.ToString());
     }
 
