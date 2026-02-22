@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     private float time;
     private float collisionTime; 
     private int collisionCount; 
+    public static int playerScore;
 
 
     // Start is called before the first frame update
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
         velocity.x = -speed;
         collisionCount = 0;
         collisionTime = 0;
+        playerScore = 0;
     }
 
     // Update is called once per frame
@@ -55,16 +57,7 @@ public class Player : MonoBehaviour
             
 
         }
-        /*
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            velocity.x -= speed;
-            if (velocity.x < -maxSpeed)
-            {
-                velocity.x = -maxSpeed;
-            }
-        }
-        */
+
         if (Math.Abs(rb.position.z - lateralPositionArray[lateralPositionIndex]) >.1)
         {
             if (rb.position.z > lateralPositionArray[lateralPositionIndex])
@@ -96,7 +89,6 @@ public class Player : MonoBehaviour
         if (collisionTime > 10)
         {
             collisionCount --;
-            Debug.Log(collisionCount);
             if (collisionCount < 0)
             {
                 collisionCount = 0;
@@ -126,6 +118,7 @@ public class Player : MonoBehaviour
         {
              SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
+        
         // to set new vectors -> new Vector(0,0,0)
     }
 
@@ -133,10 +126,8 @@ public class Player : MonoBehaviour
     {
         if (collisionInfo.collider.tag == "Obstacle")
         {
-            Debug.Log("I hit the obstacle");
             collisionTime = 0;
             collisionCount++;
-            Debug.Log(collisionCount);
         }       
     }
 }
